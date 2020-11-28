@@ -2,13 +2,23 @@
 
 .sort {
   position: relative;
+
   &__label {
     display: flex;
     align-items: center;
 
-    svg {
+    &-icon {
       margin-right: 8px;
+      transform: rotate(90deg);
+      transition: .2s ease;
+
+      &_active {
+        transform: rotate(180deg);
+      }
+
     }
+
+
 
     b {
       margin-right: 8px;
@@ -34,6 +44,7 @@
 
     ul {
       overflow: hidden;
+
       li {
         padding: 12px 20px;
         cursor: pointer;
@@ -46,6 +57,7 @@
         &.active {
           font-weight: bold;
           color: $orange;
+          border-left: 3px solid orangered;
         }
       }
     }

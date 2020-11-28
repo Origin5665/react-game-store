@@ -1,15 +1,27 @@
-import React from 'react'
+import React from 'react';
 import Modal from './Modal';
+import classnames from 'classnames'
 
-const Sort = () => {
+const Sort = ({ items }) => {
 
+   React.useEffect(() => {
+      document.body.addEventListener('click', documentHandler)
+   }, []);
 
-   const [state, setState] = React.useState(false)
+   const [selectedItemPopup, setSelectedItemPopup] = React.useState(items[0])
+   const [isVisible, setIsVisible] = React.useState();
+   const sortRef = React.useRef();
+
+   const toggleHandler = () => setIsVisible(!isVisible);
+
+   const documentHandler = (e) => {
+      (!e.path.includes(sortRef.current)) && setIsVisible(false);
+   };
 
    return (
-      <div className="sort">
+      <div ref={sortRef} className="sort">
          <div className="sort__label">
-            <svg
+            <svg className={classnames("sort__label-icon", isVisible && "sort__label-icon_active")}
                width="10"
                height="6"
                viewBox="0 0 10 6"
@@ -22,11 +34,16 @@ const Sort = () => {
                />
             </svg>
             <b >Сортировка по:</b>
-            <span onClick={() => setState(!state)}>популярности</span>
+            <span onClick={toggleHandler}>{selectedItemPopup}</span>
          </div>
-         {state && <Modal />}
+         {isVisible &&
+            <Modal
+               setSelectedItemPopup={setSelectedItemPopup}
+               selectedItemPopup={selectedItemPopup}
+               setIsVisible={setIsVisible}
+               items={["Популярное", "Цена", "Алфавит"]} />}
       </div>
-   )
-}
+   );
+};
 
-export default Sort
+export default Sort;

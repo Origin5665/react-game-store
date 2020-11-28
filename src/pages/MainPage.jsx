@@ -12,8 +12,8 @@ const MainPage = () => {
       <div className="content">
          <div className="container">
             <div className="content__top">
-               <CategoriesGroup items={["Экшен", "Ролевые", "Приключения", "Хоррор"]} />
-               <Sort />
+               <CategoriesGroup />
+               <Sort items={["Популярное", "Цена", "Алфавит"]} />
             </div>
             <h2 className="content__title">Все игры</h2>
             <div className="content__items">
