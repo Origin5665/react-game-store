@@ -3,6 +3,7 @@ import uuid from 'react-uuid'
 
 const Modal = ({ items, selectedItemPopup, setSelectedItemPopup, setIsVisible }) => {
 
+
    const isSelectedItem = (element) => {
       setSelectedItemPopup(element)
       setIsVisible(false)
@@ -13,9 +14,9 @@ const Modal = ({ items, selectedItemPopup, setSelectedItemPopup, setIsVisible })
          <ul>
 
             {items.map(item =>
-               <li className={selectedItemPopup === item ? "active" : null}
-                  onClick={() => { isSelectedItem(item) }}
-                  key={uuid()}>{item}</li>)}
+               <li className={selectedItemPopup === item.type ? "active" : null}
+                  onClick={() => { isSelectedItem(item.name) }}
+                  key={uuid()}>{item.name}</li>)}
          </ul >
       </div >
    )

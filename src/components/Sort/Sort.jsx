@@ -2,14 +2,14 @@ import React from 'react';
 import Modal from './Modal';
 import classnames from 'classnames'
 
-const Sort = ({ items }) => {
-
+const Sort = ({ items, sort }) => {
+   console.log(sort);
    React.useEffect(() => {
       document.body.addEventListener('click', documentHandler)
    }, []);
 
-   const [selectedItemPopup, setSelectedItemPopup] = React.useState(items[0])
-   const [isVisible, setIsVisible] = React.useState();
+   const [selectedItemPopup, setSelectedItemPopup] = React.useState(sort)
+   const [isVisible, setIsVisible] = React.useState(false);
    const sortRef = React.useRef();
 
    const toggleHandler = () => setIsVisible(!isVisible);
@@ -41,7 +41,7 @@ const Sort = ({ items }) => {
                setSelectedItemPopup={setSelectedItemPopup}
                selectedItemPopup={selectedItemPopup}
                setIsVisible={setIsVisible}
-               items={["Популярное", "Цена", "Алфавит"]} />}
+               items={items} />}
       </div>
    );
 };
