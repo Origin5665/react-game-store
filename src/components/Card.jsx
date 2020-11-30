@@ -1,27 +1,55 @@
-import React from 'react'
-import resident from '../assets/images/re3.jpg';
-const Card = () => {
+import React from 'react';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+const Card = ({ name, types, edition, imageUrl, price }) => {
+
+   const consoleTypes = ["Playstation", "Xbox"]
+   const editionTypes = ["Standart", "Delux", "Ultimate"]
+
+   const [activeType, setActiveType] = React.useState(types[0]);
+   const [activeTypeEdition, setActiveTypeEdition] = React.useState(edition[0]);
+
+   const consoleSelectedType = (index) => {
+      setActiveType(index)
+   };
+
+   const editionSelectedType = (index) => {
+      setActiveTypeEdition(index)
+   };
+
    return (
       <div className="pizza-block">
          <img
             className="pizza-block__image"
-            src={resident}
-            alt="Pizza"
+            src={imageUrl}
+            alt="Обложка игры"
          />
-         <h4 className="pizza-block__title">Resident Evil 3</h4>
+         <h4 className="pizza-block__title">{name}</h4>
          <div className="pizza-block__selector">
+            {/* Types.Start */}
             <ul>
-               <li className="active">консоль</li>
-               <li>компьютер</li>
+               {consoleTypes && consoleTypes.map((item, index) =>
+                  <li
+                     onClick={() => consoleSelectedType(index)}
+                     className={classNames({
+                        "active": activeType === index,
+                        "disabled": !types.includes(index)
+
+                     })} key={item}>{item}</li>)}
             </ul>
             <ul>
-               <li className="active">Обычное</li >
-               <li>Делюкс</li>
-               <li>Полное</li>
+               {editionTypes && editionTypes.map((item, index) =>
+                  <li
+                     onClick={() => editionSelectedType(editionTypes[index])}
+                     className={classNames({
+                        active: activeTypeEdition === editionTypes[index],
+                        disabled: !edition.includes(editionTypes[index])
+                     })} key={item}>{item}</li>)}
+               {/* Types.End */}
             </ul>
          </div>
          <div className="pizza-block__bottom">
-            <div className="pizza-block__price">от 395 ₽</div>
+            <div className="pizza-block__price">{price} ₽</div>
             <div className="button button--outline button--add">
                <svg
                   width="12"
@@ -39,8 +67,24 @@ const Card = () => {
                <i>2</i>
             </div>
          </div>
-      </div>
-   )
-}
+      </div >
+   );
+};
 
-export default Card
+Card.propTypes = {
+   name: PropTypes.string,
+   price: PropTypes.number,
+   edition: PropTypes.arrayOf(PropTypes.string.isRequired),
+   types: PropTypes.arrayOf(PropTypes.number.isRequired),
+   imageUrl: PropTypes.string
+};
+
+Card.defaultProps = {
+   types: [],
+   name: '',
+   edition: [],
+   imageUrl: '',
+   price: 0
+};
+
+export default Card;

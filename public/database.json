@@ -1,0 +1,56 @@
+{
+   "games": [
+     {
+       "id": 0,
+       "imageUrl": "https://store-images.s-microsoft.com/image/apps.52431.14312318575986937.e3e4a835-ae1d-458f-ab0d-9ea7e209c312.91f671b4-0be5-4311-93d7-519dd88c8ca3",
+       "name": "Resident Evil 3",
+       "types": [0, 1],
+       "edition":["Standart", "Delux", "Ultimate"],
+       "price": 1000,
+       "category": 0,
+       "rating": 4
+     },
+     {
+       "id": 1,
+       "imageUrl": "https://upload.wikimedia.org/wikipedia/ru/2/26/AC_Valhalla_standard_edition.jpg",
+       "name": "Assasin's Creed Valhalla",
+       "types": [0, 1],
+       "edition":["Standart", "Delux", "Ultimate"],
+       "price": 4400,
+       "category": 1,
+       "rating": 6
+     },
+     {
+      "id": 2,
+      "imageUrl": "https://s3.gaming-cdn.com/images/products/6215/orig/the-last-of-us-part-ii-cover.jpg",
+      "name": "The Last of Us 2",
+      "types": [0],
+      "edition":[ "Delux", "Ultimate"],
+      "price": 2550,
+      "category": 1,
+      "rating": 10
+    },
+    {
+      "id": 3,
+      "imageUrl": "https://vignette.wikia.nocookie.net/forza/images/9/99/FM7_Boxart.jpg/revision/latest?cb=20171015102433&path-prefix=ru",
+      "name": "Forza Motorsport",
+      "types": [1],
+      "edition":["Standart", "Ultimate"],
+      "price": 3400,
+      "category": 1,
+      "rating": 10
+    },
+    {
+      "id": 4,
+      "imageUrl": " https://s01.riotpixels.net/data/c8/97/c897801b-8a44-4318-8ab3-7633f0ae75a0.jpg/cover.cyberpunk-2077.1440x2160.2019-08-20.154.jpg",
+      "name": "Cyberpunk 2077",
+      "types": [0, 1],
+      "edition":["Standart", "Delux", "Ultimate"],
+      "price": 4400,
+      "category": 1,
+      "rating": 10
+    }
+     
+   ]
+ }
+

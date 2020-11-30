@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import ButtonCart from './ButtonCart'
 import HeaderLogo from './HeaderLogo'
 
@@ -11,11 +11,7 @@ const Header = () => {
             <Link to="/">
                <HeaderLogo />
             </Link>
-            <Link to="/cart">
-               <Route path="/" exact>
-                  <ButtonCart />
-               </Route>
-            </Link>
+            <ButtonCart />
          </div>
       </div>
    )
