@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+
 const Card = ({ name, types, edition, imageUrl, price }) => {
 
    const consoleTypes = ["Playstation", "Xbox"]
@@ -16,6 +17,7 @@ const Card = ({ name, types, edition, imageUrl, price }) => {
    const editionSelectedType = (index) => {
       setActiveTypeEdition(index)
    };
+
 
    return (
       <div className="pizza-block">
@@ -76,7 +78,8 @@ Card.propTypes = {
    price: PropTypes.number,
    edition: PropTypes.arrayOf(PropTypes.string.isRequired),
    types: PropTypes.arrayOf(PropTypes.number.isRequired),
-   imageUrl: PropTypes.string
+   imageUrl: PropTypes.string,
+
 };
 
 Card.defaultProps = {
@@ -84,7 +87,8 @@ Card.defaultProps = {
    name: '',
    edition: [],
    imageUrl: '',
-   price: 0
+   price: 0,
+
 };
 
 export default Card;

@@ -1,32 +1,29 @@
 import React from 'react'
 import uuid from 'react-uuid'
+import { useDispatch } from 'react-redux'
 
-const Modal = ({ selectedItemPopup, setSelectedItemPopup, setIsVisible }) => {
+const Modal = ({ setNewSort, sortTypes, activeSortType, setIsVisible }) => {
+   console.log(activeSortType);
+   const dispatch = useDispatch();
 
-   const sortTypes = [
-      { name: "Популярное", type: 'popular' },
-      { name: "Цена", type: "price" },
-      { name: "Алфавит", type: "alphabet" }
-   ];
-
-   const isSelectedItem = (element) => {
-      setSelectedItemPopup(element)
+   const isSelectedItem = (type) => {
       setIsVisible(false)
-   }
+      dispatch(setNewSort(type))
+   };
 
-   console.log("rendered sort")
+
    return (
       <div className="sort__popup">
          <ul>
             {sortTypes.map(item =>
-               <li className={selectedItemPopup === item.name ? "active" : null}
-                  onClick={() => { isSelectedItem(item.name) }}
+               <li className={activeSortType === item.name ? "active" : null}
+                  onClick={() => { isSelectedItem(item) }}
                   key={uuid()}>
                   {item.name}
                </li>)}
          </ul >
       </div >
-   )
-}
+   );
+};
 
 export default Modal

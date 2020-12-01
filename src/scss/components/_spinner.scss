@@ -1,5 +1,12 @@
-.spinner {
+.spinner__image {
    display: block;
    margin: 0 auto;
    height: 80px;
+}
+
+.spinner__wrapper {
+   height: calc(100vh - 30px);
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }

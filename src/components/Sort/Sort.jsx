@@ -2,20 +2,31 @@ import React from 'react';
 import Modal from './Modal';
 import classnames from 'classnames'
 import { useSelector } from 'react-redux';
-const Sort = React.memo(() => {
+import { setNewSort } from '../../redux/reducer/filtersReducer';
 
 
-   const sortBy = useSelector(({ filters }) => filters.sortBy)
+
+const Sort = React.memo(({ activeSortBy }) => {
+
+   const sortTypes = [
+      { name: "Популярное", type: 'rating', order: 'desc' },
+      { name: "Цена", type: "price", order: 'desc' },
+      { name: "Алфавит", type: "name", order: 'asc' }
+   ];
+
+
+   const sortRef = React.useRef();
+
 
    React.useEffect(() => {
+      //слушаем...
       document.body.addEventListener('click', documentHandler)
    }, []);
+   const activeSortType = sortTypes.find((item) => item.type === activeSortBy).name
 
-   const [selectedItemPopup, setSelectedItemPopup] = React.useState(sortBy)
-   console.log(selectedItemPopup);
-   const [isVisible, setIsVisible] = React.useState(false);
-   const sortRef = React.useRef();
-   const toggleHandler = () => setIsVisible(!isVisible);
+   const [isVisible, setIsVisible] = React.useState(false); // отображение модального окна
+
+   const toggleHandler = () => setIsVisible(!isVisible); //переключение
 
    const documentHandler = (e) => {
       (!e.path.includes(sortRef.current)) && setIsVisible(false);
@@ -37,12 +48,13 @@ const Sort = React.memo(() => {
                />
             </svg>
             <b >Сортировка по:</b>
-            <span onClick={toggleHandler}>{selectedItemPopup}</span>
+            <span onClick={toggleHandler}>{activeSortType}</span>
          </div>
          {isVisible &&
             <Modal
-               setSelectedItemPopup={setSelectedItemPopup}
-               selectedItemPopup={selectedItemPopup}
+               setNewSort={setNewSort}
+               sortTypes={sortTypes}
+               activeSortType={activeSortType}
                setIsVisible={setIsVisible}
             />}
       </div>

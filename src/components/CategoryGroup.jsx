@@ -1,7 +1,8 @@
 import React from 'react'
 import uuid from 'react-uuid';
+import PropTypes from 'prop-types';
 
-const CategoriesGroup = React.memo(({ items, getCategoryIndex }) => {
+const CategoriesGroup = React.memo(({ items, activeCategory, getCategoryIndex }) => {
 
    const [selectedItem, setSelectedItem] = React.useState(null);
 
@@ -27,5 +28,20 @@ const CategoriesGroup = React.memo(({ items, getCategoryIndex }) => {
       </div>
    )
 })
+
+CategoriesGroup.propTypes = {
+   activeCategory: PropTypes.number,
+   getCategoryIndex: PropTypes.func,
+   items: PropTypes.arrayOf(PropTypes.string.isRequired),
+
+
+};
+
+CategoriesGroup.defaultProps = {
+   items: [],
+   getCategoryIndex: null,
+
+
+};
 
 export default CategoriesGroup;
