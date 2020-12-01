@@ -9,7 +9,7 @@ const SET_CATEGORY = 'SET_CATEGORY';
 
 // Action:
 export const setNewSort = (type) => ({ type: SET_SORT, payload: type })
-export const setNewCategoy = (type) => ({ type: SET_CATEGORY, payload: type })
+export const setNewCategory = (type) => ({ type: SET_CATEGORY, payload: type })
 
 // Reducer:
 

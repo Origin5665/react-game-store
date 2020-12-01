@@ -1,9 +1,23 @@
 import React from 'react';
 import { Card, CategoriesGroup, Sort } from '../components';
 import Spinner from '../components/common/Spinner';
-import SortContainer from '../components/containers/SortContainer';
+import { useSelector, useDispatch } from 'react-redux';
+import { setNewCategory } from '../redux/reducer/filtersReducer';
 
-const MainPage = ({ dataStore }) => {
+
+
+const MainPage = () => {
+
+   const CategoryesType = ["Экшен", "Хоррор", "Приключение", "Ролевые", "Гонки"];
+
+   const dispatch = useDispatch();
+
+   const getCategoryIndex = (index) => {
+      console.log((index));
+      dispatch(setNewCategory(index))
+   };
+
+   const items = useSelector(({ store }) => store.dataStore);
 
 
 
@@ -12,13 +26,13 @@ const MainPage = ({ dataStore }) => {
          <div className="container">
             <div className="content__top">
                <CategoriesGroup
-                  items={["Экшен", "Хоррор", "Приключение", "Ролевые", "Гонки"]} />
-               <SortContainer />
+                  getCategoryIndex={getCategoryIndex}
+                  items={CategoryesType} />
+               <Sort />
             </div>
             <h2 className="content__title">Все игры</h2>
             <div className="content__items">
-
-               {dataStore ? dataStore.map(item => <Card key={item.id} {...item} />) : <Spinner />}
+               {items ? items.map(item => <Card key={item.id} {...item} />) : <Spinner />}
             </div>
          </div>
       </div>

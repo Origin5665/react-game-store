@@ -1,22 +1,29 @@
 import React from 'react'
 import uuid from 'react-uuid'
 
-const Modal = ({ items, selectedItemPopup, setSelectedItemPopup, setIsVisible }) => {
+const Modal = ({ selectedItemPopup, setSelectedItemPopup, setIsVisible }) => {
 
+   const sortTypes = [
+      { name: "Популярное", type: 'popular' },
+      { name: "Цена", type: "price" },
+      { name: "Алфавит", type: "alphabet" }
+   ];
 
    const isSelectedItem = (element) => {
       setSelectedItemPopup(element)
       setIsVisible(false)
-   };
+   }
 
+   console.log("rendered sort")
    return (
       <div className="sort__popup">
          <ul>
-
-            {items.map(item =>
-               <li className={selectedItemPopup === item.type ? "active" : null}
+            {sortTypes.map(item =>
+               <li className={selectedItemPopup === item.name ? "active" : null}
                   onClick={() => { isSelectedItem(item.name) }}
-                  key={uuid()}>{item.name}</li>)}
+                  key={uuid()}>
+                  {item.name}
+               </li>)}
          </ul >
       </div >
    )

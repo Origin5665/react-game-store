@@ -1,17 +1,20 @@
 import React from 'react';
 import Modal from './Modal';
 import classnames from 'classnames'
+import { useSelector } from 'react-redux';
+const Sort = React.memo(() => {
 
-const Sort = ({ items, sort }) => {
-   console.log(sort);
+
+   const sortBy = useSelector(({ filters }) => filters.sortBy)
+
    React.useEffect(() => {
       document.body.addEventListener('click', documentHandler)
    }, []);
 
-   const [selectedItemPopup, setSelectedItemPopup] = React.useState(sort)
+   const [selectedItemPopup, setSelectedItemPopup] = React.useState(sortBy)
+   console.log(selectedItemPopup);
    const [isVisible, setIsVisible] = React.useState(false);
    const sortRef = React.useRef();
-
    const toggleHandler = () => setIsVisible(!isVisible);
 
    const documentHandler = (e) => {
@@ -41,9 +44,9 @@ const Sort = ({ items, sort }) => {
                setSelectedItemPopup={setSelectedItemPopup}
                selectedItemPopup={selectedItemPopup}
                setIsVisible={setIsVisible}
-               items={items} />}
+            />}
       </div>
    );
-};
+});
 
 export default Sort;
