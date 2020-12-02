@@ -56,9 +56,14 @@
   &--outline {
     background-color: #fff;
     border-color: $orange;
+
     &,
     span {
       color: $orange;
+
+      display: flex;
+      gap: 4px;
+      align-items: baseline;
     }
 
     svg {

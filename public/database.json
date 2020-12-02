@@ -6,7 +6,7 @@
        "name": "Resident Evil 3",
        "types": [0, 1],
        "edition":["Standart", "Delux", "Ultimate"],
-       "price": 1000,
+       "prices": [4000, 6000,7000],
        "category": 1,
        "rating": 4
      },
@@ -16,7 +16,7 @@
        "name": "Assasin's Creed Valhalla",
        "types": [0, 1],
        "edition":["Standart", "Delux", "Ultimate"],
-       "price": 4400,
+       "prices": [4000, 5000, 6000],
        "category": 2,
        "rating": 10
      },
@@ -26,7 +26,7 @@
       "name": "The Last of Us 2",
       "types": [0],
       "edition":[ "Delux", "Ultimate"],
-      "price": 5550,
+      "prices": [null, 5000, 6000],
       "category": 2,
       "rating": 5
     },
@@ -36,7 +36,7 @@
       "name": "Forza Motorsport",
       "types": [1],
       "edition":["Standart", "Ultimate"],
-      "price": 3400,
+      "prices": [4000,null, 6000],
       "category": 4,
       "rating": 10
     },
@@ -46,7 +46,7 @@
       "name": "Cyberpunk 2077",
       "types": [0, 1],
       "edition":["Standart", "Delux", "Ultimate"],
-      "price": 4400,
+      "prices": [4000, 6000, 7000],
       "category": 3,
       "rating": 10
     },
@@ -55,8 +55,8 @@
       "imageUrl": "https://m.media-amazon.com/images/M/MV5BMmVjMzkyYWMtNDNhNi00ZWI3LTgxNGUtODRkMWYxNjZmNDI5XkEyXkFqcGdeQXVyMzY0MTE3NzU@._V1_.jpg",
       "name": "God of War",
       "types": [0],
-      "edition":["Standart", "Delux", "Ultimate"],
-      "price": 3400,
+      "edition":["Standart"],
+      "prices": [4000],
       "category": 0,
       "rating": 8
     },
@@ -65,8 +65,8 @@
       "imageUrl": "https://s1.gaming-cdn.com/images/products/5679/orig/red-dead-redemption-2-standard-edition-cover.jpg",
       "name": "Red Dead Redemption 2",
       "types": [0, 1],
-      "edition":["Standart", "Ultimate"],
-      "price": 2400,
+      "edition":[ "Ultimate"],
+      "prices": [null, null, 6000],
       "category": 0,
       "rating": 8
     }

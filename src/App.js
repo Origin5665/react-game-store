@@ -1,15 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-
-
 import { Header } from './components';
-import MainPage from './pages/MainPage';
-import { CartPage } from './pages';
+import { CartPage, MainPage } from './pages';
 
 
 const App = () => {
-
-
 
   return (
     <div className="wrapper">

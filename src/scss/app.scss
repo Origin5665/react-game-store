@@ -33,6 +33,13 @@ body {
 
   }
 
+  &__items-cart {
+    display: grid;
+    grid-gap: 10px;
+    gap: 10px;
+    justify-items: center;
+  }
+
   &__top {
     display: flex;
     align-items: center;

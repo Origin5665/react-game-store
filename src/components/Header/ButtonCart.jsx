@@ -1,19 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-
+import { useSelector } from 'react-redux'
 
 const ButtonCart = () => {
 
-
+   const { price, count } = useSelector(({ cart }) =>
+      ({ price: cart.price, count: cart.count }));
 
 
    return (
       <Link to="/cart">
 
-         <div className="header__cart">
+         <button className="header__cart">
             <div className="button button--cart">
-               <span>520 ₽</span>
+               <span>{price}</span>
                <div className="button__delimiter"></div>
                <svg
                   width="18"
@@ -44,9 +45,9 @@ const ButtonCart = () => {
                      strokeLinejoin="round"
                   />
                </svg>
-               <span>3</span>
+               <span>{count}</span>
             </div>
-         </div>
+         </button>
       </Link>
    )
 }

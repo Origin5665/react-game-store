@@ -1,7 +1,6 @@
 import React from 'react';
 import Modal from './Modal';
 import classnames from 'classnames'
-import { useSelector } from 'react-redux';
 import { setNewSort } from '../../redux/reducer/filtersReducer';
 
 
@@ -29,7 +28,8 @@ const Sort = React.memo(({ activeSortBy }) => {
    const toggleHandler = () => setIsVisible(!isVisible); //переключение
 
    const documentHandler = (e) => {
-      (!e.path.includes(sortRef.current)) && setIsVisible(false);
+      const path = e.path || (e.composedPath && e.composedPath());
+      (!path.includes(sortRef.current)) && setIsVisible(false);
    };
 
    return (

@@ -1,23 +1,36 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import Button from './Button';
+import { checkInitArray } from '../utils/utils';
 
-const Card = ({ name, types, edition, imageUrl, price }) => {
+const Card = ({ name, id, types, edition, imageUrl, prices, addObjToCart, countCurrentObj }) => {
 
-   const consoleTypes = ["Playstation", "Xbox"]
-   const editionTypes = ["Standart", "Delux", "Ultimate"]
 
-   const [activeType, setActiveType] = React.useState(types[0]);
-   const [activeTypeEdition, setActiveTypeEdition] = React.useState(edition[0]);
+   const consoleTypes = ["Playstation", "Xbox"];
+   const editionTypes = ["Standart", "Delux", "Ultimate"];
 
-   const consoleSelectedType = (index) => {
-      setActiveType(index)
+   const [activeDeviceType, setActiveDeviceType] = React.useState(types[0]);
+   const [activeEditionType, setActiveEditionType] = React.useState({ type: edition[0], price: checkInitArray(prices) });
+
+   console.log(activeEditionType)
+
+   const selectDevice = (index) => setActiveDeviceType(index);
+   const selectEdition = (index) => {
+      setActiveEditionType({ type: editionTypes[index], price: prices[index] })
    };
 
-   const editionSelectedType = (index) => {
-      setActiveTypeEdition(index)
+   const objectFormation = () => {
+      const obj = {
+         id,
+         name,
+         imageUrl,
+         price: activeEditionType.price,
+         type: consoleTypes[activeDeviceType],
+         edition: activeEditionType.type
+      };
+      addObjToCart(obj);
    };
-
 
    return (
       <div className="pizza-block">
@@ -32,9 +45,9 @@ const Card = ({ name, types, edition, imageUrl, price }) => {
             <ul>
                {consoleTypes && consoleTypes.map((item, index) =>
                   <li
-                     onClick={() => consoleSelectedType(index)}
+                     onClick={() => selectDevice(index)}
                      className={classNames({
-                        "active": activeType === index,
+                        "active": activeDeviceType === index,
                         "disabled": !types.includes(index)
 
                      })} key={item}>{item}</li>)}
@@ -42,17 +55,17 @@ const Card = ({ name, types, edition, imageUrl, price }) => {
             <ul>
                {editionTypes && editionTypes.map((item, index) =>
                   <li
-                     onClick={() => editionSelectedType(editionTypes[index])}
+                     onClick={() => selectEdition(index)}
                      className={classNames({
-                        active: activeTypeEdition === editionTypes[index],
+                        active: activeEditionType.type === editionTypes[index],
                         disabled: !edition.includes(editionTypes[index])
                      })} key={item}>{item}</li>)}
                {/* Types.End */}
             </ul>
          </div>
          <div className="pizza-block__bottom">
-            <div className="pizza-block__price">{price} ₽</div>
-            <div className="button button--outline button--add">
+            <div className="pizza-block__price">{activeEditionType.price} ₽</div>
+            <Button addObjToCart={objectFormation} className="button--add" outline>
                <svg
                   width="12"
                   height="12"
@@ -66,8 +79,8 @@ const Card = ({ name, types, edition, imageUrl, price }) => {
                   />
                </svg>
                <span>Добавить</span>
-               <i>2</i>
-            </div>
+               {countCurrentObj && <i>{countCurrentObj}</i>}
+            </Button>
          </div>
       </div >
    );

@@ -3,7 +3,7 @@ import uuid from 'react-uuid'
 import { useDispatch } from 'react-redux'
 
 const Modal = ({ setNewSort, sortTypes, activeSortType, setIsVisible }) => {
-   console.log(activeSortType);
+
    const dispatch = useDispatch();
 
    const isSelectedItem = (type) => {

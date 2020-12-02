@@ -2,7 +2,7 @@ import React from 'react'
 import uuid from 'react-uuid';
 import PropTypes from 'prop-types';
 
-const CategoriesGroup = React.memo(({ items, activeCategory, getCategoryIndex }) => {
+const CategoriesGroup = React.memo(({ items, getCategoryIndex }) => {
 
    const [selectedItem, setSelectedItem] = React.useState(null);
 
