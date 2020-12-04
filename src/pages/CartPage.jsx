@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { CartItem } from '../components'
 import uuid from 'react-uuid';
-import { clearCart } from '../redux/reducer/cartReducer'
+import { setEmpty } from '../redux/reducer/cartReducer'
 import EmptyCart from '../components/EmptyCart';
 
 const CartPage = () => {
@@ -11,14 +11,15 @@ const CartPage = () => {
    const { price, count, cart } = useSelector(({ cart }) => cart)
 
 
-   const addItems = Object.keys(cart).map((key, index) => cart[key].items[0]);
-   console.log(addItems);
+   const addItems = Object.keys(cart).map((key) => cart[key].items[0]);
 
    const cartEmptyHandler = () => {
-      window.confirm('Удалить все товары?') && dispatch(clearCart())
+      window.confirm('Удалить все товары?') && dispatch(setEmpty())
 
 
    }
+
+
 
    return (
       <div className="content">

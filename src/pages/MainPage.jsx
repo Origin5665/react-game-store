@@ -20,13 +20,15 @@ const MainPage = () => {
 
 
    React.useEffect(() => {
-
       const fetch = async () => {
          setIsLoading(true)
          await dispatch(fetchDataStore(category, sortBy))
          setIsLoading(false)
       }
-      fetch()
+
+      !items.length && fetch()
+
+
    }, [category, sortBy])
 
    /* function */
