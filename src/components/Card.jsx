@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 import { checkInitArray } from '../utils/utils';
 
-const Card = ({ name, id, types, edition, imageUrl, prices, addObjToCart, countCurrentObj }) => {
+const Card = ({ name, id, types, edition, count, imageUrl, prices, addObjToCart, countCurrentObj }) => {
 
 
    const consoleTypes = ["Playstation", "Xbox"];
@@ -12,8 +12,6 @@ const Card = ({ name, id, types, edition, imageUrl, prices, addObjToCart, countC
 
    const [activeDeviceType, setActiveDeviceType] = React.useState(types[0]);
    const [activeEditionType, setActiveEditionType] = React.useState({ type: edition[0], price: checkInitArray(prices) });
-
-   console.log(activeEditionType)
 
    const selectDevice = (index) => setActiveDeviceType(index);
    const selectEdition = (index) => {
@@ -25,6 +23,7 @@ const Card = ({ name, id, types, edition, imageUrl, prices, addObjToCart, countC
          id,
          name,
          imageUrl,
+         count,
          price: activeEditionType.price,
          type: consoleTypes[activeDeviceType],
          edition: activeEditionType.type

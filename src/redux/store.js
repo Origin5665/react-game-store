@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import rootReducer from './reducer/index'
 
 
-const middleware = applyMiddleware(thunk, logger)
+const middleware = applyMiddleware(thunk)
 const enhencer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, enhencer(middleware));
 

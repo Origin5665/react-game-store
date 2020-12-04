@@ -17,7 +17,7 @@ const MainPage = () => {
    const items = useSelector(({ store }) => store.dataStore);
    const { category, sortBy } = useSelector(({ filters }) => filters);
    const cartItems = useSelector(({ cart }) => cart.cart);
-   console.log(cartItems);
+
 
    React.useEffect(() => {
 
