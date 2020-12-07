@@ -3,7 +3,7 @@ import uuid from 'react-uuid';
 import { Button, CartItem, EmptyCart } from '../components/index';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItem, setEmpty, removeCartItem, removeItem } from '../redux/reducer/cartReducer';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 const CartPage = React.memo(() => {
@@ -11,18 +11,18 @@ const CartPage = React.memo(() => {
   const dispatch = useDispatch();
   const { price, count, cart } = useSelector(({ cart }) => cart);
   const addItems = Object.keys(cart).map((key) => cart[key].items[0]);
-  // React.useCallback((item, index) => { setSelectedItem(item); getCategoryIndex(index) }, [])
+
   /* Слушатели */
-  const cartEmptyHandler = React.useCallback(() => { window.confirm('Удалить все товары?') && dispatch(setEmpty()) }, []);
+  const cartEmptyHandler = React.useCallback(() => { window.confirm('Удалить все товары?') && dispatch(setEmpty()) }, [dispatch]);
 
   /* Удаляет выбранный товар */
-  const removeItems = React.useCallback((id) => dispatch(removeCartItem(id)), []);
+  const removeItems = React.useCallback((id) => dispatch(removeCartItem(id)), [dispatch]);
 
   /* Увеличить кол-во товара */
-  const increaseItem = React.useCallback((id) => dispatch(addItem(id)), []);
+  const increaseItem = React.useCallback((id) => dispatch(addItem(id)), [dispatch]);
 
   /* Уменьшить кол-во товара */
-  const decreaseItem = React.useCallback((id) => dispatch(removeItem(id)), [])
+  const decreaseItem = React.useCallback((id) => dispatch(removeItem(id)), [dispatch])
 
   const backToMainPage = () => history.push("/");
 

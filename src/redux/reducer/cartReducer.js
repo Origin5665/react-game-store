@@ -50,7 +50,7 @@ const cartReducer = (state = initialState, action) => {
             }
          };
 
-         /* Общее число всех товаров и общая ценна */
+         /* Общее число всех товаров и общая цена */
          const count = getTotal(newCart, 'items.length')
          const price = getTotal(newCart, 'currentItemTotalPrice')
 

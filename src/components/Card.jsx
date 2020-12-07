@@ -16,7 +16,7 @@ const Card = React.memo(({ name, id, types, edition, imageUrl, prices, addObjToC
    const selectEdition = (index) => setActiveEditionType({ type: editionTypes[index], price: prices[index] })
 
    /* Формируем и добавляем объект в карзину */
-   const objectFormation = React.useCallback(() => {
+   const objectFormation = () => {
       const obj = {
          id,
          name,
@@ -26,7 +26,7 @@ const Card = React.memo(({ name, id, types, edition, imageUrl, prices, addObjToC
          edition: activeEditionType.type
       };
       addObjToCart(obj);
-   }, [activeEditionType.price, activeEditionType.type, activeDeviceType, addObjToCart, id, name, imageUrl]);
+   };
 
    return (
       <div className="card-block">

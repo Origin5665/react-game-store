@@ -8,7 +8,7 @@ const CategoriesGroup = React.memo(({ categoryesType, getCategoryIndex }) => {
    const [selectedItem, setSelectedItem] = React.useState(null);
 
    /* Выбираем категорию */
-   const onSelectedItem = React.useCallback((item, index) => { setSelectedItem(item); getCategoryIndex(index) }, [])
+   const onSelectedItem = (item, index) => { setSelectedItem(item); getCategoryIndex(index) };
 
 
    return (
