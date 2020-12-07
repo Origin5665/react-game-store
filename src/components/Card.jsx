@@ -2,44 +2,41 @@ import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Button from './Button';
-import { checkInitArray } from '../utils/utils';
-
-const Card = ({ name, id, types, edition, count, imageUrl, prices, addObjToCart, countCurrentObj }) => {
+import { checkInitArray, consoleTypes, editionTypes } from '../utils/utils';
 
 
-   const consoleTypes = ["Playstation", "Xbox"];
-   const editionTypes = ["Standart", "Delux", "Ultimate"];
+const Card = React.memo(({ name, id, types, edition, imageUrl, prices, addObjToCart, countCurrentObj }) => {
 
+   /* Установка активных категорий */
    const [activeDeviceType, setActiveDeviceType] = React.useState(types[0]);
    const [activeEditionType, setActiveEditionType] = React.useState({ type: edition[0], price: checkInitArray(prices) });
 
+   /* Выбор категорий */
    const selectDevice = (index) => setActiveDeviceType(index);
-   const selectEdition = (index) => {
-      setActiveEditionType({ type: editionTypes[index], price: prices[index] })
-   };
+   const selectEdition = (index) => setActiveEditionType({ type: editionTypes[index], price: prices[index] })
 
-   const objectFormation = () => {
+   /* Формируем и добавляем объект в карзину */
+   const objectFormation = React.useCallback(() => {
       const obj = {
          id,
          name,
          imageUrl,
-         count,
          price: activeEditionType.price,
          type: consoleTypes[activeDeviceType],
          edition: activeEditionType.type
       };
       addObjToCart(obj);
-   };
+   }, [activeEditionType.price, activeEditionType.type, activeDeviceType, addObjToCart, id, name, imageUrl]);
 
    return (
-      <div className="pizza-block">
+      <div className="card-block">
          <img
-            className="pizza-block__image"
+            className="card-block__image"
             src={imageUrl}
             alt="Обложка игры"
          />
-         <h4 className="pizza-block__title">{name}</h4>
-         <div className="pizza-block__selector">
+         <h3 className="card-block__title">{name}</h3>
+         <div className="card-block__selector">
             {/* Types.Start */}
             <ul>
                {consoleTypes && consoleTypes.map((item, index) =>
@@ -62,8 +59,8 @@ const Card = ({ name, id, types, edition, count, imageUrl, prices, addObjToCart,
                {/* Types.End */}
             </ul>
          </div>
-         <div className="pizza-block__bottom">
-            <div className="pizza-block__price">{activeEditionType.price} ₽</div>
+         <div className="card-block__bottom">
+            <div className="card-block__price">{activeEditionType.price} ₽</div>
             <Button addObjToCart={objectFormation} className="button--add" outline>
                <svg
                   width="12"
@@ -83,7 +80,7 @@ const Card = ({ name, id, types, edition, count, imageUrl, prices, addObjToCart,
          </div>
       </div >
    );
-};
+});
 
 Card.propTypes = {
    name: PropTypes.string,

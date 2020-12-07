@@ -1,7 +1,7 @@
-const initialState = {
-   cart: {
+import { currentItemPrice, getTotal } from '../../utils/utils';
 
-   },
+const initialState = {
+   cart: {},
    price: 0,
    count: 0
 };
@@ -22,55 +22,39 @@ export const setEmpty = () => ({ type: SET_EMPTY_CART });
 
 // @Reducer:
 const cartReducer = (state = initialState, action) => {
-   console.log(action.payload)
-
-   const get = (obj, path) => {
-      const [first, ...keys] = path.split('.');
-      return keys.reduce((val, key) => {
-         return val[key];
-      }, obj[first]);
-   };
-
-   const getTotal = (obj, path) => {
-      return Object.values(obj).reduce((sum, obj) => {
-         const value = get(obj, path);
-         return sum + value;
-      }, 0);
-   };
-   const currentItemPrice = (obj) => obj.reduce((sum, obj) => obj.price + sum, 0)
 
    switch (action.type) {
 
       /* Добавляет товар в карзину */
+
       case SET_CART_ITEM: {
 
-         // Функция подсчета общей стоймости:
-         const ObjID = `${action.payload.name}__${action.payload.type}__${action.payload.edition}`
+         // Переменная для формирования именнованного ключа объекта
+         const ObjID = `${action.payload.name}__${action.payload.type}__${action.payload.edition}`;
 
-
+         /* Переменная с текущим товаром по ключу, 
+            если товара нет - создает,
+            если есть - добавляет в массив*/
 
          const currentObjCart = !state.cart[ObjID]
             ? [action.payload]
             : [...state.cart[ObjID].items, action.payload]
 
+         /* У каждого товара сформируется свой ключ:объект (по цене и версии), с подсчетом цены */
+
          const newCart = {
             ...state.cart,
             [ObjID]: {
                items: currentObjCart,
-               totalObjPrice: currentItemPrice(currentObjCart)
+               currentItemTotalPrice: currentItemPrice(currentObjCart)
             }
-         }
+         };
 
-         /* Общее число товаров и ценна */
+         /* Общее число всех товаров и общая ценна */
          const count = getTotal(newCart, 'items.length')
-         const price = getTotal(newCart, 'totalObjPrice')
-         // const count = Object.keys(newCart).reduce((sum, key) => newCart[key].items.length + sum, 0)
-         // const price = Object.keys(newCart).reduce((sum, key) => newCart[key].totalObjPrice + sum, 0)
+         const price = getTotal(newCart, 'currentItemTotalPrice')
 
-
-         // const items = Object.values(newCart).map(obj => obj.items)
-         // const total = Object.values(items).flat()
-
+         /* Формирование итогового объекта карзины */
          return {
             ...state,
             cart: newCart,
@@ -83,20 +67,19 @@ const cartReducer = (state = initialState, action) => {
       /* Увеличивает кол-во товара на +1 */
 
       case ADD_ITEM: {
-         const newObjItem = [...state.cart[action.payload].items,
-         state.cart[action.payload].items[0]
 
-         ]
+         const newObjItem = [...state.cart[action.payload].items,
+         state.cart[action.payload].items[0]]
 
          const newItems = {
             ...state.cart,
             [action.payload]: {
                items: newObjItem,
-               totalObjPrice: currentItemPrice(newObjItem)
+               currentItemTotalPrice: currentItemPrice(newObjItem)
             }
          }
          const count = getTotal(newItems, 'items.length');
-         const price = getTotal(newItems, 'totalObjPrice')
+         const price = getTotal(newItems, 'currentItemTotalPrice')
          return {
             ...state,
             cart: newItems,
@@ -105,32 +88,34 @@ const cartReducer = (state = initialState, action) => {
          }
 
       };
-      case REMOVE_ITEM: {
-         const prevItems = state.cart[action.payload].items;
-         console.log(prevItems);
 
-         const newObjItem = prevItems.length > 1
+      /* Уменьшает кол-во товара на -1 */
+      case REMOVE_ITEM: {
+         const prevObjItems = state.cart[action.payload].items;
+
+         /* Если длинна больше 1 - уменьшаем число товаров, иначе оставляем прежним */
+         const newObjItem = prevObjItems.length > 1
             ? state.cart[action.payload].items.slice(1)
-            : prevItems
+            : prevObjItems
 
          const newItems = {
             ...state.cart,
             [action.payload]: {
                items: newObjItem,
-               totalObjPrice: currentItemPrice(newObjItem)
+               currentItemTotalPrice: currentItemPrice(newObjItem)
             }
-         }
+         };
+
          const count = getTotal(newItems, 'items.length');
-         const price = getTotal(newItems, 'totalObjPrice')
+         const price = getTotal(newItems, 'currentItemTotalPrice');
+
          return {
             ...state,
             cart: newItems,
             count,
             price
          }
-
-      }
-
+      };
 
       /* Обнуляет карзину */
       case SET_EMPTY_CART: {
@@ -139,13 +124,14 @@ const cartReducer = (state = initialState, action) => {
             cart: {},
             price: 0,
             count: 0
-         };
+         }
       }
+
       /* Удаляет весь товар */
       case REMOVE_CART_ITEM: {
 
          const newCart = { ...state.cart }
-         const currentTotalPrice = newCart[action.payload].totalObjPrice;
+         const currentTotalPrice = newCart[action.payload].currentItemTotalPrice;
          const currentTotalCount = newCart[action.payload].items.length;
 
          delete newCart[action.payload]
@@ -162,5 +148,4 @@ const cartReducer = (state = initialState, action) => {
          return state;
    };
 };
-
 export default cartReducer;

@@ -4,19 +4,19 @@ const initialState = {
    dataStore: []
 };
 
-// Types:
+/* @Type */
 const SET_STORE = 'SET_STORE'
 
-// Actions:
+/* @Action */
 export const setDataStore = (data) => ({ type: SET_STORE, payload: data })
 
-// Thunk:
+/* @Thunk */
 export const fetchDataStore = (category, sortBy) => async (dispatch) => {
    const response = await getFetchData(category, sortBy);
    dispatch(setDataStore(response))
 };
 
-// Reducer:
+/* @Reducer */
 const storeReducer = (state = initialState, action) => {
    switch (action.type) {
 

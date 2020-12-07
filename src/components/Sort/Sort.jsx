@@ -2,35 +2,34 @@ import React from 'react';
 import Modal from './Modal';
 import classnames from 'classnames'
 import { setNewSort } from '../../redux/reducer/filtersReducer';
-
-
+import { sortTypes } from '../../utils/utils';
+import { useDispatch } from 'react-redux'
 
 const Sort = React.memo(({ activeSortBy }) => {
-
-   const sortTypes = [
-      { name: "Популярное", type: 'rating', order: 'desc' },
-      { name: "Цена", type: "price", order: 'desc' },
-      { name: "Алфавит", type: "name", order: 'asc' }
-   ];
-
-
+   const dispatch = useDispatch();
+   /* Ссылка на DOM элемент */
    const sortRef = React.useRef();
 
+   /* Состояние модального окна */
+   const [isVisible, setIsVisible] = React.useState(false);
 
-   React.useEffect(() => {
-      //слушаем...
-      document.body.addEventListener('click', documentHandler)
-   }, []);
-   const activeSortType = sortTypes.find((item) => item.type === activeSortBy).name
+   /* Активируем слушатель для модального окна */
+   React.useEffect(() => { document.body.addEventListener('click', documentHandler) }, []);
 
-   const [isVisible, setIsVisible] = React.useState(false); // отображение модального окна
+   /* Определяет активный тип сортировки */
+   const activeSortType = sortTypes.find((item) => item.type === activeSortBy).name;
 
-   const toggleHandler = () => setIsVisible(!isVisible); //переключение
+   /* Изменяем состояние модального окна */
+   const toggleHandler = () => setIsVisible(!isVisible);
 
+   /* Закрываем модальное окно по клику */
    const documentHandler = (e) => {
       const path = e.path || (e.composedPath && e.composedPath());
       (!path.includes(sortRef.current)) && setIsVisible(false);
    };
+
+   /* Выбираем тип сортировки */
+   const isSelectedItem = (type) => { setIsVisible(false); dispatch(setNewSort(type)) };
 
    return (
       <div ref={sortRef} className="sort">
@@ -52,10 +51,9 @@ const Sort = React.memo(({ activeSortBy }) => {
          </div>
          {isVisible &&
             <Modal
-               setNewSort={setNewSort}
+               isSelectedItem={isSelectedItem}
                sortTypes={sortTypes}
                activeSortType={activeSortType}
-               setIsVisible={setIsVisible}
             />}
       </div>
    );

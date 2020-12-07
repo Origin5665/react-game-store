@@ -6,16 +6,15 @@ const initialState = {
       order: "desc"
    }
 }
-// Types:
+/* @Types */
 const SET_SORT = 'SET_SORT';
 const SET_CATEGORY = 'SET_CATEGORY';
 
-// Action:
+/* @Action */
 export const setNewSort = (type) => ({ type: SET_SORT, payload: type })
 export const setNewCategory = (type) => ({ type: SET_CATEGORY, payload: type })
 
-// Reducer:
-
+/* @Reducer */
 const filtersReducer = (state = initialState, action) => {
    switch (action.type) {
 
@@ -25,7 +24,7 @@ const filtersReducer = (state = initialState, action) => {
          return { ...state, category: action.payload }
       default:
          return state
-   }
+   };
 };
 
 export default filtersReducer;
